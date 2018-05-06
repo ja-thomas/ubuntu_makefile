@@ -8,12 +8,13 @@
 #
 # Adapted from: https://gist.github.com/h4cc/c54d3944cb555f32ffdf25a5fa1f2602
 
-.PHONY:	all preparations libs update upgrade fonts python ruby virtualbox vagrant graphics darktable networking google_chrome dropbox slack archives media pandoc system harddisk docker ansible filesystem nodejs apache2 php7 mysql mysql-workbench postgres memcached mongodb tools encfs_manager nautilus httpie esl_repo erlang elixir couchdb teamviewer xmind presentation idea_intellij
+.PHONY:	update upgrade preparations graphics fonts google_chrome python slack telegram media latex teamviewer sublime java tools enpass rstudio bash-it
 
 all:
 	@echo "Installation of ALL targets"
 	make preparations
 	make upgrade
+	make graphics
 	make fonts
 	make google_chrome
 	make python
@@ -27,6 +28,7 @@ all:
 	make tools
 	make enpass
 	make rstudio
+	make bash-it
 	make R
 
 update:
@@ -44,7 +46,7 @@ graphics:
 	make update
 	sudo apt install nvidia-390
 
-fonts:
+fonts: rstudio bash-it
 	mkdir -p ~/.fonts
 	rm -f ~/.fonts/*
 	wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf -O ~/.fonts/Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete.otf
