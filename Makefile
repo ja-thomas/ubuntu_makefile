@@ -39,6 +39,11 @@ preparations:
 	make update
 	sudo apt -y install software-properties-common build-essential checkinstall wget curl git libssl-dev apt-transport-https ca-certificates
 
+graphics:
+	sudo add-apt-repository ppa:graphics-drivers/ppa
+	make update
+	sudo apt install nvidia-390
+
 fonts:
 	mkdir -p ~/.fonts
 	rm -f ~/.fonts/*
@@ -73,7 +78,7 @@ latex:
 	sudo apt -y install pandoc pandoc-citeproc texlive texlive-latex-extra texlive-latex-base texlive-fonts-recommended texlive-latex-recommended texlive-latex-extra texlive-lang-german texlive-xetex preview-latex-style dvipng nbibtex
 
 teamviewer:
-	sudo apt -y install qml-module-qtquick-dialogs qml-module-qtquick-privatewidgets
+	sudo apt -y install qml-module-qtquick-dialogs qml-module-qtquick-privatewidgets libqt5webkit5
 	rm -f teamviewer_amd64.deb
 	wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
 	sudo dpkg -i teamviewer_amd64.deb
