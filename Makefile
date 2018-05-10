@@ -11,8 +11,9 @@
 
 all:
 	@echo "Installation of ALL targets"
-	make preparations
+	make update
 	make upgrade
+	make preparations
 	make tools
 	make fonts
 	make graphics
