@@ -1,4 +1,3 @@
-
 #
 # Ubuntu 18.04 (Bionic Beaver)
 #
@@ -8,14 +7,17 @@
 #
 # Adapted from: https://gist.github.com/h4cc/c54d3944cb555f32ffdf25a5fa1f2602
 
-.PHONY:	update upgrade preparations graphics fonts google_chrome python slack telegram media latex teamviewer sublime java tools enpass rstudio bash-it
+.PHONY:	update upgrade preparations graphics fonts google_chrome python slack telegram media latex teamviewer sublime java tools enpass rstudio bash-it ssh-key
 
 all:
 	@echo "Installation of ALL targets"
 	make preparations
 	make upgrade
-	make graphics
+	make tools
 	make fonts
+	make graphics
+	make dropbox
+	make enpass
 	make google_chrome
 	make python
 	make slack
@@ -25,7 +27,6 @@ all:
 	make teamviewer
 	make sublime
 	make java
-	make tools
 	make enpass
 	make rstudio
 	make bash-it
@@ -39,14 +40,19 @@ upgrade:
 
 preparations:
 	make update
-	sudo apt -y install software-properties-common build-essential checkinstall wget curl git libssl-dev apt-transport-https ca-certificates
+	sudo apt -y install software-properties-common build-essential checkinstall wget curl git libssl-dev apt-transport-https ca-certificates libcurl4-openssl-dev libxml2-dev libcairo2-dev libgmp3-dev libproj-dev libcgal-dev libglu1-mesa-dev libx11-dev libgsl-dev libcr-dev mpich mpich-doc
+
+dropbox:
+	sudo apt -y install nautilus-dropbox
+	nautilus --quit
+	dropbox start -i
 
 graphics:
 	sudo add-apt-repository ppa:graphics-drivers/ppa
 	make update
 	sudo apt install nvidia-390
 
-fonts: rstudio bash-it
+fonts:
 	mkdir -p ~/.fonts
 	rm -f ~/.fonts/*
 	wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf -O ~/.fonts/Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete.otf
@@ -65,7 +71,7 @@ python:
 	sudo -H pip install --upgrade pip
 
 slack:
-	sudo snap install slack
+	sudo snap install slack --classic
 
 telegram:
 	#FIXME: snap install should be better but doesn't work currently
@@ -77,7 +83,7 @@ media:
 	sudo apt -y install vlc
 
 latex:
-	sudo apt -y install pandoc pandoc-citeproc texlive texlive-latex-extra texlive-latex-base texlive-fonts-recommended texlive-latex-recommended texlive-latex-extra texlive-lang-german texlive-xetex preview-latex-style dvipng nbibtex
+	sudo apt -y install pandoc pandoc-citeproc texlive-full dvipng nbibtex
 
 teamviewer:
 	sudo apt -y install qml-module-qtquick-dialogs qml-module-qtquick-privatewidgets libqt5webkit5
@@ -97,12 +103,13 @@ java:
 	sudo apt -y install default-jre default-jdk
 
 tools:
-	sudo apt -y install meld tmux vim
+	sudo apt -y install meld tmux vim gnome-tweak-tool
 
 enpass:
-	echo "deb http://repo.sinew.in/ stable main" > /etc/apt/sources.list.d/enpass.list
-	wget -O - https://dl.sinew.in/keys/enpass-linux.key | apt-key add -
+	echo "deb http://repo.sinew.in/ stable main" | sudo tee -a /etc/apt/sources.list.d/enpass.list
+	wget -O - https://dl.sinew.in/keys/enpass-linux.key | sudo apt-key add -
 	make update
+	exit
 	sudo apt -y install enpass
 
 rstudio:
@@ -113,17 +120,33 @@ rstudio:
 	rm -f rstudio-xenial-1.1.447-amd64.deb
 
 R:
-	# R 3.5 does not have a PPA yet
-	exit 1
+	#FIXME: Add bionic cran ubuntu ppa as soon as available
+	sudo apt -y install r-base r-base-dev
+	mkdir -p ~/.R/library
+	Rscript -e "install.packages(c('devtools', 'prettycode'))"
+	Rscript -e "library(devtools); install_github('rdatsci/rt')"
+	rt init
+
 
 bash-it:
 	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 	~/.bash_it/install.sh
 
+ssh-key:
+	ssh-keygen -t rsa -b 4096 -C "janek.thomas@web.de"
+	ssh-add ~/.ssh/id_rsa
+
 links:
-	rm ~/.bashrc
-	ln -s ~/dotfiles/.bashrc ~/.bashrc
-	rm ~/.ssh/config
-	ln -s ~/dotfiles/.ssh/config ~/.ssh/config
-	rm ~/.tmux.conf
-	ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
+	ln -fs ~/dotfiles/.bashrc ~/.bashrc
+	ln -fs ~/dotfiles/.ssh/config ~/.ssh/config
+	ln -fs ~/dotfiles/.tmux.conf ~/.tmux.conf
+	ln -fs ~/dotfiles/.Renviron ~/.Renviron
+	ln -fs ~/dotfiles/.Rprofile ~/.Rprofile
+	ln -fs ~/dotfiles/.vimrc ~/.vimrc
+	ln -fs ~/dotfiles/.gitconfig ~/.gitconfig
+
+sublime-links:
+	ln -fs ~/dotfiles/sublime/Preferences.sublime-settings ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
+	ln -fs ~/dotfiles/sublime/Default\ \(Linux\).sublime-keymap ~/.config/sublime-text-3/Packages/User/Default\ \(Linux\).sublime-keymap
+	ln -fs ~/dotfiles/sublime/SendCode\ \(Linux\).sublime-settings ~/.config/sublime-text-3/Packages/SendCode/SendCode\ \(Linux\).sublime-settings
+
