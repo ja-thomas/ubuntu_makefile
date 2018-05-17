@@ -145,9 +145,9 @@ links:
 	ln -fs ~/dotfiles/.Rprofile ~/.Rprofile
 	ln -fs ~/dotfiles/.vimrc ~/.vimrc
 	ln -fs ~/dotfiles/.gitconfig ~/.gitconfig
+	ln -fs ~/dotfiles/.openml ~/.openml
 
 sublime-links:
 	ln -fs ~/dotfiles/sublime/Preferences.sublime-settings ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 	ln -fs ~/dotfiles/sublime/Default\ \(Linux\).sublime-keymap ~/.config/sublime-text-3/Packages/User/Default\ \(Linux\).sublime-keymap
 	ln -fs ~/dotfiles/sublime/SendCode\ \(Linux\).sublime-settings ~/.config/sublime-text-3/Packages/SendCode/SendCode\ \(Linux\).sublime-settings
-
