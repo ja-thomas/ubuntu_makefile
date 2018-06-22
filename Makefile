@@ -128,6 +128,11 @@ R:
 	Rscript -e "library(devtools); install_github('rdatsci/rt')"
 	rt init
 
+impressive:
+	sudo apt -y install pdftk python-opengl
+	wget https://sourceforge.net/projects/impressive/files/Impressive/0.12.0/Impressive-0.12.0.tar.gz
+	tar -xf Impressive-0.12.0.tar.gz -C ~/
+	rm Impressive-0.12.0.tar.gz
 
 bash-it:
 	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
