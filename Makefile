@@ -131,10 +131,11 @@ R:
 	rt init
 
 impressive:
-	sudo apt -y install pdftk python-opengl
+	sudo apt -y install pdftk python-opengl python-pygame
 	wget https://sourceforge.net/projects/impressive/files/Impressive/0.12.0/Impressive-0.12.0.tar.gz
-	tar -xf Impressive-0.12.0.tar.gz -C ~/
+	sudo tar -xf Impressive-0.12.0.tar.gz -C /opt
 	rm Impressive-0.12.0.tar.gz
+	sudo ln -s /opt/Impressive-0.12.0/impressive.py /usr/bin/imp
 
 bash-it:
 	git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
