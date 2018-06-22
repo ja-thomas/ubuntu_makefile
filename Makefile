@@ -32,6 +32,7 @@ all:
 	make rstudio
 	make bash-it
 	make R
+	make impressive
 
 update:
 	sudo apt update
@@ -121,7 +122,8 @@ rstudio:
 	rm -f rstudio-xenial-1.1.447-amd64.deb
 
 R:
-	#FIXME: Add bionic cran ubuntu ppa as soon as available
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+	sudo add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu bionic-cran35/'
 	sudo apt -y install r-base r-base-dev
 	mkdir -p ~/.R/library
 	Rscript -e "install.packages(c('devtools', 'prettycode'))"
