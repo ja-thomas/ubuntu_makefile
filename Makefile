@@ -7,7 +7,7 @@
 #
 # Adapted from: https://gist.github.com/h4cc/c54d3944cb555f32ffdf25a5fa1f2602
 
-.PHONY:	update upgrade preparations graphics fonts google_chrome python slack telegram media latex teamviewer sublime java tools enpass rstudio bash-it ssh-key
+.PHONY:	update upgrade preparations graphics fonts google_chrome python slack telegram media latex teamviewer sublime java tools enpass rstudio bash-it ssh-key docker
 
 all:
 	@echo "Installation of ALL targets"
@@ -33,6 +33,7 @@ all:
 	make bash-it
 	make R
 	make impressive
+	make docker
 
 update:
 	sudo apt update
@@ -131,7 +132,7 @@ R:
 	rt init
 
 impressive:
-	sudo apt -y install pdftk python-opengl python-pygame
+	sudo apt -y install python-opengl python-pygame python-pil
 	wget https://sourceforge.net/projects/impressive/files/Impressive/0.12.0/Impressive-0.12.0.tar.gz
 	sudo tar -xf Impressive-0.12.0.tar.gz -C /opt
 	rm Impressive-0.12.0.tar.gz
@@ -159,3 +160,10 @@ sublime-links:
 	ln -fs ~/dotfiles/sublime/Preferences.sublime-settings ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
 	ln -fs ~/dotfiles/sublime/Default\ \(Linux\).sublime-keymap ~/.config/sublime-text-3/Packages/User/Default\ \(Linux\).sublime-keymap
 	ln -fs ~/dotfiles/sublime/SendCode\ \(Linux\).sublime-settings ~/.config/sublime-text-3/Packages/SendCode/SendCode\ \(Linux\).sublime-settings
+
+docker:
+	sudo apt-get install apt-transport-https ca-certificates software-properties-common
+	sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+	make update
+	sudo apt-get install docker-ce
