@@ -34,6 +34,7 @@ all:
 	make R
 	make impressive
 	make docker
+	make bat
 
 update:
 	sudo apt update
@@ -173,3 +174,8 @@ docker:
 	sudo usermod -aG docker $USER
 	sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 	sudo chmod +x /usr/local/bin/docker-compose
+
+bat:
+	wget https://github.com/sharkdp/bat/releases/download/v0.6.0/bat_0.6.0_amd64.deb
+	sudo dpkg -i bat_0.6.0_amd64.deb
+	rm bat_0.6.0_amd64.deb
