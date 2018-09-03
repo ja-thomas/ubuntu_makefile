@@ -71,8 +71,10 @@ google_chrome:
 
 python:
 	make preparations
-	sudo -H apt -y install python-pip
-	sudo -H pip install --upgrade pip
+	sudo apt -y install python3-pip
+	sudo apt -y install ipython3
+	sudo pip3 install --upgrade pip
+	pip3 install --user flake8
 
 slack:
 	sudo snap install slack --classic
@@ -128,8 +130,8 @@ R:
 	sudo add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu bionic-cran35/'
 	sudo apt -y install r-base r-base-dev
 	mkdir -p ~/.R/library
-	Rscript -e "install.packages(c('devtools', 'prettycode'))"
-	Rscript -e "library(devtools); install_github('rdatsci/rt')"
+	Rscript -e "install.packages(c('devtools', 'colorout'))"
+	Rscript -e "library(devtools); install_github('rdatsci/rt', 'jalvesaq/colorout')"
 	rt init
 
 impressive:
@@ -156,6 +158,9 @@ links:
 	ln -fs ~/dotfiles/.vimrc ~/.vimrc
 	ln -fs ~/dotfiles/.gitconfig ~/.gitconfig
 	ln -fs ~/dotfiles/.openml ~/.openml
+	ln -fs ~/dotfiles/.ipython/profile_default/ipython_config.py ~/.ipython/profile_default/ipython_config.py
+	ln -fs ~/dotfiles/bin ~/bin
+	ln -fs ~/dotfiles/.rt/packages ~/.rt/packages
 
 sublime-links:
 	ln -fs ~/dotfiles/sublime/Preferences.sublime-settings ~/.config/sublime-text-3/Packages/User/Preferences.sublime-settings
