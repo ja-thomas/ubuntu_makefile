@@ -130,8 +130,8 @@ R:
 	sudo add-apt-repository 'deb [arch=amd64,i386] https://cran.rstudio.com/bin/linux/ubuntu bionic-cran35/'
 	sudo apt -y install r-base r-base-dev
 	mkdir -p ~/.R/library
-	Rscript -e "install.packages(c('devtools', 'colorout'))"
-	Rscript -e "library(devtools); install_github('rdatsci/rt', 'jalvesaq/colorout')"
+	Rscript -e "install.packages(c('devtools'))"
+	Rscript -e "library(devtools); install_github(c('rdatsci/rt', 'jalvesaq/colorout'))"
 	rt init
 
 impressive:
