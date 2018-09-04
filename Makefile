@@ -72,7 +72,7 @@ google_chrome:
 python:
 	make preparations
 	sudo apt -y install python3-pip
-	sudo apt -y install ipython3
+	sudo apt -y install ipython3 jupyter-notebook
 	sudo pip3 install --upgrade pip
 	pip3 install --user flake8
 
