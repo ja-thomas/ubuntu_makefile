@@ -72,7 +72,7 @@ google_chrome:
 python:
 	make preparations
 	sudo apt -y install python3-pip
-	sudo apt -y install ipython3 jupyter-notebook
+	sudo apt -y install ipython3
 	sudo pip3 install --upgrade pip
 	pip3 install --user flake8
 
@@ -185,3 +185,8 @@ bat:
 	wget https://github.com/sharkdp/bat/releases/download/v0.6.0/bat_0.6.0_amd64.deb
 	sudo dpkg -i bat_0.6.0_amd64.deb
 	rm bat_0.6.0_amd64.deb
+
+jupyter:
+	sudo apt install jupyter-notebook jupyter-client
+	rinstall IRkernel/IRkernel
+	Rscript -e "IRkernel::installspec()"
