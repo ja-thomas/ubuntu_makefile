@@ -131,7 +131,7 @@ R:
 	sudo apt -y install r-base r-base-dev
 	mkdir -p ~/.R/library
 	Rscript -e "install.packages(c('devtools'))"
-	Rscript -e "library(devtools); install_github(c('rdatsci/rt', 'jalvesaq/colorout'))"
+	Rscript -e "library(devtools); install_github(c('rdatsci/rt', 'r-lib/prettycode'))"
 	rt init
 
 impressive:
