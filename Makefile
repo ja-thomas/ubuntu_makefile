@@ -35,6 +35,7 @@ all:
 	make impressive
 	make docker
 	make bat
+	make jekyll
 
 update:
 	sudo apt update
@@ -191,3 +192,9 @@ jupyter:
 	sudo apt install jupyter-notebook jupyter-client
 	rinstall IRkernel/IRkernel
 	Rscript -e "IRkernel::installspec()"
+
+jekyll:
+	make update
+	sudo apt install ruby ruby-dev
+	gem install bundler
+	gem install jekyll
